@@ -1,0 +1,104 @@
+# 문제1 : 0~9까지의 값으로 넘파이 1차원 배열을 만들고, 이 배열을 거꾸로 나열하라.
+# 예 : [0 1 2 3 4 5 6 7 8 9] -> [9 8 7 6 5 4 3 2 1 0]
+
+import numpy as np
+
+arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+reversed_arr = arr[::-1]
+print(arr, "->", reversed_arr)
+
+# 문제2 : 0~8까지의 값을 가지고 3 x 3 행렬과 9 x 1행렬을 생성하라.
+
+import numpy as np
+
+arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+
+print(arr.reshape(3, 3))
+print(arr.reshape(9, 1))
+
+# 문제3 : 배열의 테두리에 1, 내부에 0을 가진 10 x 10 크기의 행렬을 생성하라.(슬라이싱 사용)
+
+import numpy as np
+
+# 10x10 행렬을 0으로 초기화한다. 
+matrix = np.zeros((10, 10), dtype=int)
+
+# 테두리를 1로 설정 (슬라이싱 사용)
+matrix[0, :] = 1   # 첫 번째 행을 전체 1로 설정한다. 
+matrix[-1, :] = 1  # 마지막 행을 전체 1로 설정한다. 
+matrix[:, 0] = 1   # 첫 번째 열을 전체 1로 설정한다. 
+matrix[:, -1] = 1  # 마지막 열을 전체 1로 설정한다. 
+
+print(matrix)
+
+# 문제4 : 5 x 5 행렬을 만들어 체스보드 패턴으로 채워보라.(슬라이싱 이용)
+
+import numpy as np
+
+# 5x5 행렬 생성 (초기값을 0으로 설정한다.)
+matrix = np.zeros((5, 5), dtype=int)
+
+# 체스보드 패턴 적용하기 (슬라이싱 이용)
+matrix[::2, 1::2] = 1  # 짝수 행(0, 2, 4)의 홀수 열(1, 3)에 1을 설정한다. 
+matrix[1::2, ::2] = 1  # 홀수 행(1, 3)의 짝수 열(0, 2, 4)에 1을 설정한다. 
+
+print(matrix)
+
+# 문제5 : 넘파이를 사용해서 0부터 9까지의 값을 가지는 벡터를 만들고 5에서 8 사이의 숫자 부호를 반전시켜보라.
+# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] -> [0, 1, 2, 3, 4, -5, -6, -7, -8, 9]
+
+import numpy as np
+
+# 0부터 9까지의 값을 가지는 백터 생성하기
+a = np.arange(10)
+
+# 5에서 8 사이의 숫자 부호 반전(슬라이싱 사용)
+a[5:9] *= -1 # 백터 a의 5번째 원소부터 8까지 원소까지 각각 -1을 곱해준다. 
+
+print(a)
+
+# 문제6 : 주어진 두 배열의 내적을 계산하라.
+
+import numpy as np
+
+arr1 = np.array([[4, 5], [7, 10]])
+arr2 = np.array([[2, 3], [1, 5]])
+result = arr1 @ arr2 # 배열(행렬)의 내적 : @ 또는 dot()을 사용한다. arr1.dot(arr2)도 가능하다. 
+print(result)
+
+# 문제7. 시그모이드(Sigmoid) 함수의 1차 미분 함수를 구하고, Sigmoid 함수와 미분 함수를 같은 화면에 그려보라.
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sigmoid 함수를 정의한다. 
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Sigmoid 미분 함수를 정의한다. 
+def sigmoid_differentiation(x):
+    return sigmoid(x) * (1 - sigmoid(x))
+
+# x 값 범위를 설정한다. 
+x = np.linspace(-10, 10, 100)
+
+# y 값을 계산한다. 
+y_sigmoid = sigmoid(x)
+y_differentiation = sigmoid_differentiation(x)
+
+# 그래프를 그린다. 
+plt.figure(figsize=(8, 5))
+plt.plot(x, y_sigmoid, label="Sigmoid Function", color='blue')
+plt.plot(x, y_differentiation, label="Sigmoid Differentiation", color='red')
+
+# 그래프를 꾸며준다. 
+plt.axhline(y=0, color='black', linewidth=0.5) # h : horizontal
+plt.axvline(x=0, color='black', linewidth=0.5) # v : vertical
+plt.legend()
+plt.title("Sigmoid Function and its Differentiation")
+plt.xlabel("x")
+plt.ylabel("value")
+plt.grid()
+
+# 그래프 출력
+plt.show()
